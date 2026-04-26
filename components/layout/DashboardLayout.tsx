@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Navbar from "../dashboard/Navbar";
 import { KPIGrid } from "../dashboard/KPIGrid";
 import { TrendChart } from "../dashboard/TrendChart";
@@ -6,8 +9,12 @@ import { RecentTransactions } from "../dashboard/RecentTransactions";
 import { TopDefaulters } from "../dashboard/TopDefaulters";
 import { QuickActions } from "../dashboard/QuickActions";
 import { LoanStatusChart } from "../dashboard/LoanStatusChart";
+import { DASHBOARD_DATA } from "../../lib/constants/dashboard";
 
 export default function Dashboard() {
+  const [viewBy, setViewBy] = useState<'Daily' | 'Weekly' | 'Monthly'>('Weekly');
+  const options: ('Daily' | 'Weekly' | 'Monthly')[] = ['Daily', 'Weekly', 'Monthly'];
+  const currentData = DASHBOARD_DATA[viewBy];
   return (
     <div className="p-8 space-y-6 bg-gray-50 min-h-screen">
 
@@ -25,11 +32,12 @@ export default function Dashboard() {
 
           {/* CENTER: View By Toggle */}
           <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
-            {["Daily", "Weekly", "Monthly"].map((period) => (
+            {options.map((period) => (
               <button
                 key={period}
+                onClick={() => setViewBy(period)}
                 className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                  period === "Weekly"
+                  viewBy === period
                     ? "bg-purple-600 text-white"
                     : "text-gray-600 hover:text-gray-900"
                 }`}
@@ -50,14 +58,14 @@ export default function Dashboard() {
       </div>
 
       {/* KPI GRID */}
-      <KPIGrid />
+      <KPIGrid totalLent={currentData.totalLent} totalCollected={currentData.totalCollected} />
 
       {/* MAIN GRID */}
       <div className="grid grid-cols-12 gap-8">
 
         {/* LEFT SIDE */}
         <div className="col-span-8 space-y-8">
-          <TrendChart />
+          <TrendChart data={currentData.trendData} />
           <LoanOverview />
         </div>
 

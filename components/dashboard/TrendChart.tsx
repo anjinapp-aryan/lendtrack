@@ -2,16 +2,11 @@
 
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-const data = [
-  { month: "Jan", lent: 10000, collected: 8000 },
-  { month: "Feb", lent: 15000, collected: 12000 },
-  { month: "Mar", lent: 20000, collected: 18000 },
-  { month: "Apr", lent: 25000, collected: 22000 },
-  { month: "May", lent: 30000, collected: 28000 },
-  { month: "Jun", lent: 35000, collected: 32000 },
-];
+interface TrendChartProps {
+  data: Array<{ period: string; lent: number; collected: number; }>;
+}
 
-export function TrendChart() {
+export function TrendChart({ data }: TrendChartProps) {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-6">
@@ -40,7 +35,7 @@ export function TrendChart() {
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
-          <XAxis dataKey="month" stroke="#9ca3af" style={{ fontSize: "12px" }} />
+          <XAxis dataKey="period" stroke="#9ca3af" style={{ fontSize: "12px" }} />
           <YAxis stroke="#9ca3af" style={{ fontSize: "12px" }} />
           <Tooltip
             contentStyle={{
