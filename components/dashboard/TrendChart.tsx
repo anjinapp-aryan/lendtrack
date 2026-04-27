@@ -4,22 +4,21 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 interface TrendChartProps {
   data: Array<{ period: string; lent: number; collected: number; }>;
+  viewBy?: 'Daily' | 'Weekly' | 'Monthly';
 }
 
-export function TrendChart({ data }: TrendChartProps) {
+export function TrendChart({ data, viewBy = 'Weekly' }: TrendChartProps) {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">Collection vs Lending Trend</h3>
-          <p className="text-sm text-gray-500 mt-1">Monthly lending and collection analysis</p>
+          <p className="text-sm text-gray-500 mt-1">{viewBy === 'Daily' ? 'Hourly' : viewBy === 'Weekly' ? 'Daily / Weekly' : 'Monthly'} lending and collection analysis</p>
         </div>
-        <button className="flex items-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm font-medium text-gray-700 transition-colors">
-          Weekly
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+        <div className="hidden sm:flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-700">
+          <span className="text-sm">View: </span>
+          <span className="font-semibold">{viewBy}</span>
+        </div>
       </div>
 
       <ResponsiveContainer width="100%" height={300}>

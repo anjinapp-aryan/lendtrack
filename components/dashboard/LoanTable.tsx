@@ -9,14 +9,14 @@ const loans = [
 
 export default function LoanTable() {
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm">
-      <table className="w-full text-sm">
+    <div className="bg-white p-4 rounded-xl shadow-sm overflow-x-auto">
+      <table className="w-full text-sm min-w-[640px] md:min-w-0">
         <thead className="text-gray-500">
           <tr>
             <th>Borrower</th>
             <th>Loan</th>
             <th>Paid</th>
-            <th>Remaining</th>
+            <th className="hidden md:table-cell">Remaining</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -29,7 +29,7 @@ export default function LoanTable() {
               </td>
               <td>₹{loan.amount}</td>
               <td className="text-emerald-600 font-semibold">₹{loan.paid}</td>
-              <td className="text-red-500 font-medium">₹{loan.remaining}</td>
+              <td className="hidden md:table-cell text-red-500 font-medium">₹{loan.remaining}</td>
               <td>
                 <span
                   className={`px-2 py-1 rounded-full text-xs ${
