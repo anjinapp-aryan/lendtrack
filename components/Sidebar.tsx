@@ -2,7 +2,11 @@
 
 import { Home, Users, Wallet, CreditCard, Shield, BarChart, Settings, Lock } from "lucide-react";
 
-export default function Sidebar() {
+interface SidebarProps {
+  className?: string;
+}
+
+export default function Sidebar({ className = "" }: SidebarProps) {
   const menu = [
     { name: "Dashboard", icon: Home },
     { name: "Borrowers", icon: Users },
@@ -14,7 +18,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 flex flex-col h-screen">
+    <aside className={`w-64 bg-white border-r border-gray-200 flex flex-col h-screen ${className}`}>
       {/* Header */}
       <div className="px-6 py-8">
         <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">LendTrack</h1>

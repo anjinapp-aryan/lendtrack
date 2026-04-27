@@ -14,8 +14,8 @@ export default function Dashboard() {
   const currentData = DASHBOARD_DATA[viewBy];
 
   return (
-    <div className="p-6 space-y-6 overflow-auto">
-      <div className="grid grid-cols-5 gap-4">
+    <div className="p-4 lg:p-6 space-y-6 overflow-auto w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <KPICard title="Total Lent" value={currentData.totalLent} icon={DollarSign} color="bg-green-100" />
         <KPICard title="Collected" value={currentData.totalCollected} icon={TrendingUp} color="bg-blue-100" />
         <KPICard title="Pending" value="₹4,30,000" icon={AlertCircle} color="bg-yellow-100" />
@@ -30,7 +30,7 @@ export default function Dashboard() {
             onClick={() => setViewBy(opt)}
             className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
               viewBy === opt
-                ? 'bg-purple-600 text-white shadow-sm'
+                ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200'
             }`}
           >
@@ -39,7 +39,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <TrendChart data={currentData.trendData} />
+      <TrendChart data={currentData.trendData} viewBy={viewBy} />
 
       <LoanTable />
     </div>

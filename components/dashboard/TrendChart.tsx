@@ -1,28 +1,40 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 interface TrendChartProps {
   data: Array<{ period: string; lent: number; collected: number; }>;
+  viewBy?: 'Daily' | 'Weekly' | 'Monthly';
 }
 
-export function TrendChart({ data }: TrendChartProps) {
+export function TrendChart({ data, viewBy = 'Weekly' }: TrendChartProps) {
+  const [aspect, setAspect] = useState<number>(2);
+
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      // smaller aspect on narrow screens so chart isn't squashed
+      setAspect(w < 640 ? 1.2 : w < 1024 ? 1.6 : 2);
+    }
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">Collection vs Lending Trend</h3>
-          <p className="text-sm text-gray-500 mt-1">Monthly lending and collection analysis</p>
+          <p className="text-sm text-gray-500 mt-1">{viewBy === 'Daily' ? 'Hourly' : viewBy === 'Weekly' ? 'Daily / Weekly' : 'Monthly'} lending and collection analysis</p>
         </div>
-        <button className="flex items-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm font-medium text-gray-700 transition-colors">
-          Weekly
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+        <div className="hidden sm:flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-700">
+          <span className="text-sm">View: </span>
+          <span className="font-semibold">{viewBy}</span>
+        </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" aspect={aspect}>
         <AreaChart data={data} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
           <defs>
             <linearGradient id="lentGradient" x1="0" y1="0" x2="0" y2="1">

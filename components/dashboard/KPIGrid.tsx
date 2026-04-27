@@ -15,7 +15,7 @@ export function KPIGrid({ totalLent, totalCollected }: KPIGridProps) {
     { title: "Due This Week", value: "₹85,000", color: "bg-purple-100", icon: Clock, trend: 2 },
   ];
   return (
-    <div className="grid grid-cols-5 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {kpis.map((kpi) => (
         <KPICard key={kpi.title} {...kpi} />
       ))}

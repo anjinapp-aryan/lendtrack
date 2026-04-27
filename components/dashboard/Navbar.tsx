@@ -1,10 +1,23 @@
 "use client";
 
-import { Search, Bell, Calendar, Plus, Sun, Moon } from "lucide-react";
+import { Search, Bell, Calendar, Plus, Sun, Menu } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenSidebar?: () => void;
+}
+
+export default function Navbar({ onOpenSidebar }: NavbarProps) {
   return (
-    <div className="flex items-center justify-between bg-white rounded-2xl p-6 shadow-sm">
+    <div className="flex items-center justify-between bg-white rounded-2xl p-4 lg:p-6 shadow-sm">
+      {/* Mobile: Hamburger */}
+      <div className="lg:hidden">
+        <button onClick={onOpenSidebar} className="p-2 rounded-md hover:bg-gray-100">
+          <Menu size={20} className="text-gray-700" />
+        </button>
+      </div>
+
+      <div className="flex items-center justify-between flex-1 ml-2">
       {/* LEFT: Search */}
       <div className="flex items-center gap-3 flex-1 max-w-md">
         <div className="relative flex-1">
@@ -52,6 +65,7 @@ export default function Navbar() {
             <p className="text-xs text-gray-500">Owner</p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
