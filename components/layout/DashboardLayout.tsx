@@ -18,7 +18,7 @@ export default function Dashboard() {
   const options: ('Daily' | 'Weekly' | 'Monthly')[] = ['Daily', 'Weekly', 'Monthly'];
   const currentData = DASHBOARD_DATA[viewBy];
   return (
-    <div className="w-full px-4 py-6 lg:px-8 lg:py-8 space-y-6 bg-gray-50 min-h-screen">
+    <div className="w-full max-w-full overflow-x-hidden px-4 py-4 lg:px-8 lg:py-8 space-y-6 bg-gray-50 min-h-screen">
 
       {/* HEADER */}
       <Navbar onOpenSidebar={() => setMobileSidebarOpen(true)} />
@@ -35,7 +35,7 @@ export default function Dashboard() {
 
       {/* SUB-HEADER FILTER BAR */}
       <div className="bg-white rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           {/* LEFT: Title */}
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>

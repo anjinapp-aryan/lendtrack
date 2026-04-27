@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 interface TrendChartProps {
@@ -8,6 +9,18 @@ interface TrendChartProps {
 }
 
 export function TrendChart({ data, viewBy = 'Weekly' }: TrendChartProps) {
+  const [aspect, setAspect] = useState<number>(2);
+
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      // smaller aspect on narrow screens so chart isn't squashed
+      setAspect(w < 640 ? 1.2 : w < 1024 ? 1.6 : 2);
+    }
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-6">
@@ -21,7 +34,7 @@ export function TrendChart({ data, viewBy = 'Weekly' }: TrendChartProps) {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" aspect={aspect}>
         <AreaChart data={data} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
           <defs>
             <linearGradient id="lentGradient" x1="0" y1="0" x2="0" y2="1">

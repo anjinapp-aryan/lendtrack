@@ -14,7 +14,7 @@ export default function LoanTable() {
         <thead className="text-gray-500">
           <tr>
             <th>Borrower</th>
-            <th>Loan</th>
+            <th className="hidden sm:table-cell">Loan</th>
             <th>Paid</th>
             <th className="hidden md:table-cell">Remaining</th>
             <th>Status</th>
@@ -27,7 +27,7 @@ export default function LoanTable() {
                 <div className="w-8 h-8 bg-gray-300 rounded-full" />
                 {loan.name}
               </td>
-              <td>₹{loan.amount}</td>
+              <td className="hidden sm:table-cell">₹{loan.amount}</td>
               <td className="text-emerald-600 font-semibold">₹{loan.paid}</td>
               <td className="hidden md:table-cell text-red-500 font-medium">₹{loan.remaining}</td>
               <td>
